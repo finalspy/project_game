@@ -21,14 +21,18 @@ public class Application extends Controller {
 
 	/**
 	 * Index.
-	 *
-	 * @param question the question
+	 * 
+	 * @param question
+	 *            the question
 	 * @return the string
 	 */
 	public static String index(String q) {
+		Logger.info("new question: \n" + q + "\n");
 		if (EMAIL.equalsIgnoreCase(q)) {
+			Logger.info("email question");
 			return "florian.jose.ferreira@gmail.com";
 		}
+		Logger.info("question not treated");
 		return "Not treated";
 	}
 }
