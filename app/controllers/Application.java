@@ -27,6 +27,7 @@ public class Application extends Controller {
 	/** The Constant EMAIL. */
 	private static final String EMAIL = "Quelle est ton adresse email";
 	private static final String HAPPY = "Es tu heureux de participer(OUI/NON)";
+	private static final String MAILING_LIST = "Es tu abonne a la mailing list(OUI/NON)";
 
 	/**
 	 * Index.
@@ -65,6 +66,10 @@ public class Application extends Controller {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
 		} else if (HAPPY.equalsIgnoreCase(q)) {
+			Logger.info("Happy question");
+			answer = "OUI";
+		} else if (HAPPY.equalsIgnoreCase(q)
+				|| MAILING_LIST.equalsIgnoreCase(q)) {
 			Logger.info("Happy question");
 			answer = "OUI";
 		} else {
