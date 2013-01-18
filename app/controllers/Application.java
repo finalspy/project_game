@@ -24,21 +24,29 @@ public class Application extends Controller {
 
 	/**
 	 * Index.
-	 * 
-	 * @param question
-	 *            the question
+	 *
+	 * @param q the q
 	 * @return the string
-	 * @throws EmailException
+	 * @throws EmailException the email exception
 	 */
 	public static String index(String q) throws EmailException {
 		String answer = "No question to treated";
 		if (org.apache.commons.lang.StringUtils.isNotBlank(q)) {
 			answer = treatedQuestion(q);
 
+		}else{
+			sendMail("Connection whitout question");
 		}
 		return answer;
 	}
 
+	/**
+	 * Treated question.
+	 *
+	 * @param q the q
+	 * @return the string
+	 * @throws EmailException the email exception
+	 */
 	private static String treatedQuestion(String q) throws EmailException {
 		String answer;
 		Logger.info("new question: \n" + q + "\n");
@@ -52,13 +60,19 @@ public class Application extends Controller {
 		}
 		return answer;
 	}
-
-	private static void sendMail(String q) throws EmailException {
+	
+	/**
+	 * Send mail.
+	 *
+	 * @param msg the msg
+	 * @throws EmailException the email exception
+	 */
+	private static void sendMail(String msg) throws EmailException {
 		SimpleEmail email = new SimpleEmail();
 		email.setFrom("florian.jose.ferreira@gmail.com");
 		email.addTo("florian.jose.ferreira@gmail.com");
 		email.setSubject("New question");
-		email.setMsg(q);
+		email.setMsg(msg);
 		email.getHostName();
 		Mail.send(email);
 	}
