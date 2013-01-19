@@ -31,6 +31,7 @@ public class Application extends Controller {
 	private static final String EMAIL = "Quelle est ton adresse email";
 	private static final String HAPPY = "Es tu heureux de participer(OUI/NON)";
 	private static final String MAILING_LIST = "Es tu abonne a la mailing list(OUI/NON)";
+	private static final String READY = "Es tu pret a recevoir une enonce au format markdown par http post(OUI/NON)";
 
 	/**
 	 * Index.
@@ -61,7 +62,8 @@ public class Application extends Controller {
 		Logger.info("\n " + Http.Request.current().args);
 		mailBody.append(" Args " + Http.Request.current().args.keySet() + " \n");
 		mailBody.append(" Body " + Http.Request.current().body + " \n\n");
-		mailBody.append("String builder: " + ToStringBuilder.reflectionToString( Http.Request.current()));
+		mailBody.append("String builder: "
+				+ ToStringBuilder.reflectionToString(Http.Request.current()));
 		sendMail(mailBody.toString());
 	}
 
@@ -81,11 +83,9 @@ public class Application extends Controller {
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
-		} else if (HAPPY.equalsIgnoreCase(q)) {
-			Logger.info("Happy question");
-			answer = "OUI";
 		} else if (HAPPY.equalsIgnoreCase(q)
-				|| MAILING_LIST.equalsIgnoreCase(q)) {
+				|| MAILING_LIST.equalsIgnoreCase(q)
+				|| READY.equalsIgnoreCase(q)) {
 			Logger.info("Happy question");
 			answer = "OUI";
 		} else {
