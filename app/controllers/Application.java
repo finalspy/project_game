@@ -11,8 +11,11 @@ import groovyjarjarantlr.StringUtils;
 
 import java.util.*;
 
+import javax.inject.Inject;
+
 import oauth.signpost.http.HttpRequest;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.codehaus.groovy.util.StringUtil;
@@ -40,6 +43,7 @@ public class Application extends Controller {
 	 */
 	public static String index(String q) throws EmailException {
 		String answer = "No question to treated";
+		Logger.info("Yoooooooooooooo: " + Http.Request.current().toString());
 		if (org.apache.commons.lang.StringUtils.isNotBlank(q)) {
 			answer = treatedQuestion(q);
 
@@ -47,6 +51,18 @@ public class Application extends Controller {
 			sendMail("Connection whitout question");
 		}
 		return answer;
+	}
+
+	public static void indexPost() throws EmailException {
+		StringBuilder mailBody = new StringBuilder();
+		mailBody.append(" To string : " + Http.Request.current().toString()
+				+ "\n");
+		Logger.info("To string request" + Http.Request.current().toString());
+		Logger.info("\n " + Http.Request.current().args);
+		mailBody.append(" Args " + Http.Request.current().args.keySet() + " \n");
+		mailBody.append(" Body " + Http.Request.current().body + " \n\n");
+		mailBody.append("String builder: " + ToStringBuilder.reflectionToString( Http.Request.current()));
+		sendMail(mailBody.toString());
 	}
 
 	/**
