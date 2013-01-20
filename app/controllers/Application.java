@@ -44,7 +44,6 @@ public class Application extends Controller {
 	 */
 	public static String index(String q) throws EmailException {
 		String answer = "No question to treated";
-		Logger.info("Yoooooooooooooo: " + Http.Request.current().toString());
 		if (org.apache.commons.lang.StringUtils.isNotBlank(q)) {
 			answer = treatedQuestion(q);
 
@@ -55,15 +54,9 @@ public class Application extends Controller {
 	}
 
 	public static void indexPost() throws EmailException {
+		Logger.info("Post body " + params.get("body"));
 		StringBuilder mailBody = new StringBuilder();
-		mailBody.append(" To string : " + Http.Request.current().toString()
-				+ "\n");
-		Logger.info("To string request" + Http.Request.current().toString());
-		Logger.info("\n " + Http.Request.current().args);
-		mailBody.append(" Args " + Http.Request.current().args.keySet() + " \n");
-		mailBody.append(" Body " + Http.Request.current().body + " \n\n");
-		mailBody.append("String builder: "
-				+ ToStringBuilder.reflectionToString(Http.Request.current()));
+		mailBody.append( params.get("body"));
 		sendMail(mailBody.toString());
 	}
 
