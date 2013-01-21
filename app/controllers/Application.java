@@ -29,9 +29,7 @@ public class Application extends Controller {
 
 	/** The Constant EMAIL. */
 	private static final String EMAIL = "Quelle est ton adresse email";
-	private static final String HAPPY = "Es tu heureux de participer(OUI/NON)";
-	private static final String MAILING_LIST = "Es tu abonne a la mailing list(OUI/NON)";
-	private static final String READY = "Es tu pret a recevoir une enonce au format markdown par http post(OUI/NON)";
+	private static final String YES_OR_NOT = "(OUI/NON)";
 
 	/**
 	 * Index.
@@ -56,7 +54,7 @@ public class Application extends Controller {
 	public static void indexPost() throws EmailException {
 		Logger.info("Post body " + params.get("body"));
 		StringBuilder mailBody = new StringBuilder();
-		mailBody.append( params.get("body"));
+		mailBody.append(params.get("body"));
 		sendMail(mailBody.toString());
 	}
 
@@ -76,9 +74,7 @@ public class Application extends Controller {
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
-		} else if (HAPPY.equalsIgnoreCase(q)
-				|| MAILING_LIST.equalsIgnoreCase(q)
-				|| READY.equalsIgnoreCase(q)) {
+		} else if (org.apache.commons.lang.StringUtils.containsIgnoreCase(q,YES_OR_NOT)) {
 			Logger.info("Happy question");
 			answer = "OUI";
 		} else {
