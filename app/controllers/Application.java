@@ -31,6 +31,8 @@ public class Application extends Controller {
 	private static final String EMAIL = "Quelle est ton adresse email";
 	private static final String YES_OR_NOT = "(OUI/NON)";
 
+	public static String lastQuestionSend;
+
 	/**
 	 * Index.
 	 * 
@@ -70,6 +72,7 @@ public class Application extends Controller {
 	private static String treatedQuestion(String q) throws EmailException {
 		String answer;
 		Logger.info("new question: \n" + q + "\n");
+
 		sendMail(q);
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
@@ -92,13 +95,18 @@ public class Application extends Controller {
 	 * @throws EmailException
 	 *             the email exception
 	 */
-	private static void sendMail(String msg) throws EmailException {
-		SimpleEmail email = new SimpleEmail();
-		email.setFrom("florian.jose.ferreira@gmail.com");
-		email.addTo("florian.jose.ferreira@gmail.com");
-		email.setSubject("New question");
-		email.setMsg(msg);
-		email.getHostName();
-		Mail.send(email);
+	private static void sendMail(final String msg) throws EmailException {
+
+		if (org.apache.commons.lang.StringUtils.isBlank(lastQuestionSend)
+				|| !msg.equalsIgnoreCase(msg)) {
+			lastQuestionSend = msg;
+			SimpleEmail email = new SimpleEmail();
+			email.setFrom("florian.jose.ferreira@gmail.com");
+			email.addTo("florian.jose.ferreira@gmail.com");
+			email.setSubject("New question");
+			email.setMsg(msg);
+			email.getHostName();
+			Mail.send(email);
+		}
 	}
 }
