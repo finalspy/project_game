@@ -7,7 +7,7 @@ import play.mvc.Http.Request;
 import play.mvc.Http.Response;
 import sun.rmi.transport.proxy.HttpReceiveSocket;
 
-import groovyjarjarantlr.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -43,12 +43,12 @@ public class Application extends Controller {
 	 *             the email exception
 	 */
 	public static String index(String q) throws EmailException {
-		String answer = "No question to treated";
-		if (org.apache.commons.lang.StringUtils.isNotBlank(q)) {
+		String answer = "No question to treat";
+		if (StringUtils.isNotBlank(q)) {
 			answer = treatedQuestion(q);
 
 		} else {
-			sendMail("Connection whitout question");
+			sendMail("Connection without question");
 		}
 		return answer;
 	}
@@ -77,11 +77,13 @@ public class Application extends Controller {
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
-		} else if (org.apache.commons.lang.StringUtils.containsIgnoreCase(q,YES_OR_NOT)) {
+		} else if (StringUtils.containsIgnoreCase(q,YES_OR_NOT)) {
+			// attention a la question : "est ce que tu reponds toujours OUI ? (OUI|NON)
+			// et quid s'il y a une question : "veux tu perdre ou me donner 100€ ? (OUI|NON)
 			Logger.info("Happy question");
 			answer = "OUI";
 		} else {
-			Logger.info("question not treated");
+			Logger.info("Question not treated");
 			answer = "Question not treated";
 		}
 		return answer;
@@ -97,7 +99,7 @@ public class Application extends Controller {
 	 */
 	private static void sendMail(final String msg) throws EmailException {
 
-		if (org.apache.commons.lang.StringUtils.isBlank(lastQuestionSend)
+		if (StringUtils.isBlank(lastQuestionSend)
 				|| !msg.equalsIgnoreCase(msg)) {
 			lastQuestionSend = msg;
 			SimpleEmail email = new SimpleEmail();
