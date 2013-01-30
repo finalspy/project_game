@@ -29,6 +29,14 @@ public class Application extends Controller {
 
 	/** The Constant EMAIL. */
 	private static final String EMAIL = "Quelle est ton adresse email";
+	private static final String HEUREUX = "Es tu heureux de participer";
+	private static final String LIST = "Es tu abonne a la mailing list";
+	private static final String MARKDOWN = "Es tu pret a recevoir une enonce au format markdown par http post";
+	private static final String PREMIER = "As tu bien recu le premier enonce";
+	private static final String SECOND = "As tu bien recu le second enonce";
+	private static final String OUI = "Est ce que tu reponds toujours oui";
+	private static final String DELOOF = "As tu copie le code de ndeloof";
+	private static final String BUGS = "As tu passe une bonne nuit malgre les bugs de l etape precedente";
 	private static final String YES_OR_NOT = "(OUI/NON)";
 
 	public static String lastQuestionSend;
@@ -77,9 +85,20 @@ public class Application extends Controller {
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
-		} else if (org.apache.commons.lang.StringUtils.containsIgnoreCase(q,YES_OR_NOT)) {
+		} else if (HEUREUX.equalsIgnoreCase(q)
+			|| LIST.equalsIgnoreCase(q)
+			|| MARKDOWN.equalsIgnoreCase(q)
+			|| PREMIER.equalsIgnoreCase(q)
+			|| SECOND.equalsIgnoreCase(q)) {
 			Logger.info("Happy question");
 			answer = "OUI";
+		} else if (OUI.equalsIgnoreCase(q)
+			|| NDELOOF.equalsIgnoreCase(q)) {
+			Logger.info("Unhappy question");
+			answer = "NON";
+		} else if (BUGS.equalsIgnoreCase(q)) {
+			Logger.info("Annoying question");
+			answer = "QUELS_BUGS";
 		} else {
 			Logger.info("question not treated");
 			answer = "Question not treated";
