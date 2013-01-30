@@ -29,14 +29,14 @@ public class Application extends Controller {
 
 	/** The Constant EMAIL. */
 	private static final String EMAIL = "Quelle est ton adresse email";
-	private static final String HEUREUX = "Es tu heureux de participer";
-	private static final String LIST = "Es tu abonne a la mailing list";
-	private static final String MARKDOWN = "Es tu pret a recevoir une enonce au format markdown par http post";
-	private static final String PREMIER = "As tu bien recu le premier enonce";
-	private static final String SECOND = "As tu bien recu le second enonce";
-	private static final String OUI = "Est ce que tu reponds toujours oui";
-	private static final String DELOOF = "As tu copie le code de ndeloof";
-	private static final String BUGS = "As tu passe une bonne nuit malgre les bugs de l etape precedente";
+	private static final String HAPPY= "Es tu heureux de participer(OUI/NON)";
+	private static final String MAILING = "Es tu abonne a la mailing list(OUI/NON)";
+	private static final String MARKDOWN = "Es tu pret a recevoir une enonce au format markdown par http post(OUI/NON)";
+	private static final String ACK = "As tu bien recu le premier enonce(OUI/NON)";
+	private static final String ACK2 = "As tu bien recu le second enonce(OUI/NON)";
+	private static final String YES = "Est ce que tu reponds toujours oui(OUI/NON)";
+	private static final String DELOOF = "As tu copie le code de ndeloof(OUI/NON/JE_SUIS_NICOLAS)";
+	private static final String BUGS = "As tu passe une bonne nuit malgre les bugs de l etape precedente(PAS_TOP/BOF/QUELS_BUGS)";
 	private static final String YES_OR_NOT = "(OUI/NON)";
 
 	public static String lastQuestionSend;
@@ -85,15 +85,13 @@ public class Application extends Controller {
 		if (EMAIL.equalsIgnoreCase(q)) {
 			Logger.info("email question");
 			answer = "florian.jose.ferreira@gmail.com";
-		} else if (HEUREUX.equalsIgnoreCase(q)
-			|| LIST.equalsIgnoreCase(q)
-			|| MARKDOWN.equalsIgnoreCase(q)
-			|| PREMIER.equalsIgnoreCase(q)
-			|| SECOND.equalsIgnoreCase(q)) {
-			Logger.info("Happy question");
+		} else if (StringUtils.equalsIgnoreCase(q, HAPPY) || StringUtils.equalsIgnoreCase(q, MAILING) 
+			|| StringUtils.equalsIgnoreCase(q, MARKDOWN) || StringUtils.equalsIgnoreCase(q, ACK)
+			|| StringUtils.equalsIgnoreCase(q, ACK2)) {
+			Logger.info("Happy || Mailing question ");
 			answer = "OUI";
-		} else if (OUI.equalsIgnoreCase(q)
-			|| NDELOOF.equalsIgnoreCase(q)) {
+		} else if (StringUtils.containsIgnoreCase(q, YES_OR_NOT)
+			|| StringUtils.containsIgnoreCase(q, NDELOOF)) {
 			Logger.info("Unhappy question");
 			answer = "NON";
 		} else if (BUGS.equalsIgnoreCase(q)) {
